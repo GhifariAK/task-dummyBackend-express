@@ -1,12 +1,46 @@
--Base URL untuk semua request: http://localhost:3000
+````markdown
+# Backend Main API - Task Dummy Microservices
 
-Daftar Endpoint & Parameter:
+Repository ini merupakan Backend Utama (REST API) yang bertugas menangani operasi GET (Membaca data), PUT (Mengupdate data), DELETE (Menghapus data), serta integrasi dengan Firebase.
 
-1. CRUD Users (PostgreSQL)
+## 💻 Tech Stack
 
--Read (GET): GET /api/users -> Menampilkan semua data user.
--Update (PUT): PUT /api/users/:id -> Ganti parameter :id di ujung URL dengan angka ID user yang mau diubah. Data Update via tab Body -> raw (JSON).
--Delete (DELETE): DELETE /api/users/:id -> Ganti parameter :id di URL dengan angka ID user yang mau dihapus
+- Node.js & Express.js
+- PostgreSQL (pg)
+- Firebase Admin SDK
+- CORS & Dotenv
+
+## ⚙️ Persyaratan (Environment Variables)
+
+Karena alasan keamanan, file rahasia tidak disertakan di repository ini. Anda wajib membuat/menambahkan file berikut di _root folder_ sebelum menjalankan aplikasi:
+
+1. File `.env` (berisi _connection string_ ke database Azure PostgreSQL).
+2. File `firebase-key.json` (kredensial dari Firebase Console).
+
+## 🚀 Cara Menjalankan Server
+
+1. Install dependencies:
+   ```bash
+   npm install
+   ```
+2. Lalu jalankan :
+   ```bash
+   node server.js
+   ```
+3. Server akan berjalan pada Port 3000
+
+## Daftar Endpoint & Parameter:
+
+1. RUD (PostgreSQL)
+
+- Read (GET): GET /api/policies -> Menampilkan semua data policies.
+
+- Read (GET): GET /api/devices -> Menampilkan semua data device.
+
+- Read (GET): GET /api/users -> Menampilkan semua data user.
+- Read (GET): GET /api/users/:id -> Menampilkan data user by id (ganti parameter id dengan id user yang ingin dicari).
+- Update (PUT): PUT /api/users/:id -> Ganti parameter :id di ujung URL dengan angka ID user yang mau diubah. Data Update via tab Body -> raw (JSON).
+- Delete (DELETE): DELETE /api/users/:id -> Ganti parameter :id di URL dengan angka ID user yang mau dihapus
 
 2. Upload File (Firebase Storage)
 
@@ -14,9 +48,5 @@ Daftar Endpoint & Parameter:
 
 Catatan Response: Setelah sukses upload, Response akan berupa filename gambar tersebut di Firebase
 
--Get File: GET /api/file/:filename -> Ganti :filename dengan filename yang ingi di lihat yang ada di firebase.
-
-3. Create User (Pub/Sub Express)
-
-- Endpoint: POST /api/pubsub/user
-  Cara pakai: Kirim data name dan email via tab Body -> raw (JSON).
+- Get File: GET /api/file/:filename -> Ganti :filename dengan filename yang ingi di lihat yang ada di firebase.
+````
