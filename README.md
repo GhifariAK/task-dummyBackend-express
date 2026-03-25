@@ -1,4 +1,3 @@
-````markdown
 # Backend Main API - Task Dummy Microservices
 
 Repository ini merupakan Backend Utama (REST API) yang bertugas menangani operasi GET (Membaca data), PUT (Mengupdate data), DELETE (Menghapus data), serta integrasi dengan Firebase.
@@ -49,4 +48,3 @@ Karena alasan keamanan, file rahasia tidak disertakan di repository ini. Anda wa
 Catatan Response: Setelah sukses upload, Response akan berupa filename gambar tersebut di Firebase
 
 - Get File: GET /api/file/:filename -> Ganti :filename dengan filename yang ingi di lihat yang ada di firebase.
-````
