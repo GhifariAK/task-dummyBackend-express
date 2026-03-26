@@ -24,36 +24,6 @@ const bucket = admin.storage().bucket();
 // Setup Multer untuk membaca file dari frontend (disimpan di RAM sementara)
 const upload = multer({ storage: multer.memoryStorage() });
 
-// //-----Pubsub
-// const EventEmitter = require('events');
-// // Membuat instance Pub/Sub bawaan Node.js
-// const pubsub = new EventEmitter();
-
-// // Pubsubnya bikin project terpisah (create)
-
-// // SUBSCRIBER: Bertugas mengeksekusi query Insert ke DB
-// pubsub.on('create_user_event', async (userData) => {
-//     try {
-//         const { username, full_name, email_address, password } = userData;
-        
-//         // tenant_id (50), type (1), status_ad (0), dan create_at (NOW())
-//         // Karena Dbnya gabisa null pas bagian itu
-//         const query = `
-//             INSERT INTO tb_users (username, full_name, email_address, password, tenant_id, type, status_ad, create_at) 
-//             VALUES ($1, $2, $3, $4, 50, 1, 0, NOW()) 
-//             RETURNING *
-//         `;
-
-//         const values = [username, full_name, email_address, password];
-//         const newUser = await pool.query(query, values);
-        
-//         console.log(`\n[SUBSCRIBER SUKSES] -> User baru berhasil dibuat di database:`);
-//         console.log(newUser.rows[0]);
-//     } catch (err) {
-//         console.error(`\n[SUBSCRIBER ERROR] -> Gagal membuat user:`, err.message);
-//     }
-// });
-
 // Endpoint testing
 app.get('/', (req, res) => {
     res.json({ message: 'Halo! BE berhasil Jalan.' });
@@ -240,32 +210,6 @@ app.get('/api/files', async (req, res) => {
         res.status(500).json({ success: false, message: 'Gagal mengambil list file Firebase' });
     }
 });
-
-
-// //----------------------PUBSUB
-// // PUBLISHER: Menerima request dan menyiarkan pesan
-// app.post('/api/pubsub/user', (req, res) => {
-//     try {
-//         const { username, full_name, email_address, password } = req.body;
-
-//         if (!username || !full_name || !email_address || !password) {
-//             return res.status(400).json({ success: false, message: 'username, full_name, email_address, dan password wajib diisi' });
-//         }
-
-//         // Publisher menyiarkan event beserta datanya ke Subscriber
-//         pubsub.emit('create_user_event', { username, full_name, email_address, password });
-
-//         // Publisher langsung membalas ke Frontend TANPA menunggu proses insert DB selesai
-//         res.json({ 
-//             success: true, 
-//             message: 'Request diterima! User sedang dibuat di background oleh Subscriber.' 
-//         });
-//     } catch (err) {
-//         console.error(err.message);
-//         res.status(500).json({ success: false, message: 'Terjadi kesalahan pada server' });
-//     }
-// });
-
 
 // Menjalankan server di port 3000
 const PORT = process.env.PORT_MAIN || 3000;
